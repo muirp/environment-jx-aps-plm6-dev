@@ -15,7 +15,7 @@ ingress:
   tls:
     email: jenkins-x@cloudbees.com
     enabled: true
-    production: false
+    production: true
 kaniko: true
 secretStorage: vault
 storage:
