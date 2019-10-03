@@ -1,17 +1,56 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  project: ""
+  clusterName: jx-aps-plm6
+  environmentGitOwner: muirp
+  environmentGitPublic: true
+  externalDNSSAName: jx-aps-plm6-dn
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  kanikoSAName: jx-aps-plm6-ko
+  namespace: jx
+  project: aps-plm6
   provider: gke
-  zone: ""
-gitops: true
+  vaultName: jx-aps-plm6
+  vaultSAName: jx-aps-plm6-vt
+  zone: us-east1-c
 environments:
-- key: dev
-- key: staging
-- key: production
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
+gitops: true
 ingress:
-  domain: ""
-  externalDNS: false
+  cloud_dns_secret_name: external-dns-gcp-sa
+  domain: aps-plm6.jxaas.io
+  domainIssuerURL: https://jx-tenant-service-jx-staging.jenkins-x.live
+  externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
     email: jenkins-x@cloudbees.com
     enabled: true
@@ -19,13 +58,26 @@ ingress:
 kaniko: true
 secretStorage: vault
 storage:
+  backup:
+    enabled: true
+    url: gs://aps-plm6-backup
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://aps-plm6-lts
   reports:
     enabled: false
     url: ""
   repository:
     enabled: false
     url: ""
+vault:
+  bucket: aps-plm6-vault
+  key: jx-aps-plm6-crypto-key
+  keyring: jx-aps-plm6-keyring
+  name: jx-aps-plm6
+  serviceAccount: jx-aps-plm6-vt
+velero: {}
+versionStream:
+  ref: v0.0.4
+  url: https://github.com/cloudbees/arcalos-jenkins-x-versions.git
 webhook: prow
